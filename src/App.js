@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { increaseCounter, decreaseCounter } from './redux/action/counterAction';
 import React from 'react';
 import Header from './components/Header/Header';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 const App = () => {
 	return (

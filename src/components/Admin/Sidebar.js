@@ -11,6 +11,9 @@ import {
 
 import { FaTachometerAlt, FaGem, FaList, FaGithub, FaRegLaughWink, FaHeart } from 'react-icons/fa';
 import sidebarBg from '../../assets/bg.jpg';
+import { DiReact } from 'react-icons/di';
+import { MdDashboard } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 
 const Sidebar = (props)=> {
     const { image, collapsed, toggled, handleToggleSidebar } = props;
@@ -36,6 +39,7 @@ const Sidebar = (props)=> {
                             whiteSpace: 'nowrap',
                         }}
                     >
+                        <DiReact size={'3em'} color={"oobfff"}/>
                         Huynh Nhat Vy
                     </div>
                 </SidebarHeader>
@@ -43,21 +47,23 @@ const Sidebar = (props)=> {
                 <SidebarContent>
                     <Menu iconShape="circle">
                         <MenuItem
-                            icon={<FaTachometerAlt />}
-                            suffix={<span className="badge red">New</span>}
+                            icon={<MdDashboard />}
                         >
                             Dashboard
+                            <Link to="admin"/>
                         </MenuItem>
-                        <MenuItem icon={<FaGem />}> components </MenuItem>
                     </Menu>
                     <Menu iconShape="circle">
                         <SubMenu
-                            suffix={<span className="badge yellow">3</span>}
-                            icon={<FaRegLaughWink />}
+                            icon={<FaGem />}
+                            title="Features"
                         >
-                            <MenuItem> 1</MenuItem>
-                            <MenuItem> 2</MenuItem>
-                            <MenuItem> 3</MenuItem>
+                            <MenuItem>
+                                Quản lý người dùng
+                                <Link to="/admin/manage-users" />
+                            </MenuItem>
+                            <MenuItem>Quản lý b ài thi</MenuItem>
+                            <MenuItem>Quản lý câu hỏi</MenuItem>
                         </SubMenu>
 
                     </Menu>
@@ -78,7 +84,7 @@ const Sidebar = (props)=> {
                         >
                             <FaGithub />
                             <span style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                                viewSource
+                                &#169; Nhật Vỹ Huỳnh
                             </span>
                         </a>
                     </div>

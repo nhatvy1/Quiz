@@ -1,5 +1,5 @@
 #Node.js v14.17.0
-
+npm install --save-exact axios@0.27.2 react-toastify@9.0.7 react-paginate@8.1.3
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
