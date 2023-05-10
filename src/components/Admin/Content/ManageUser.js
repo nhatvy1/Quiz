@@ -3,18 +3,28 @@ import './ManageUser.scss';
 import { FcPlus } from 'react-icons/fc';
 import { useState, useEffect } from "react";
 import TableUser from "./TableUser";
-import { getAllUsers } from '../../../services/apiService';
+import { getAllUsers, getUserWithPaginate } from '../../../services/apiService';
 import ModalUpdateUser from "./ModalUpdateUser";
+import ModalDetailUser from "./ModalDetailUser";
+import ModalDeleteUser from "./ModalDeleteUser";
+import TableUserPaginate from "./TableUserPaginate";
 
 const ManageUser = (props)=> {
+    const LIMIT_USER = 5
+    const [pageCount, setPageCount] = useState(0)
     const [showModalCreateUser, setShowModalCreateUser] = useState(false)
     const [showModalUpdateUser, setShowModalUpdateUser] = useState(false)
+    const [showModalDetailUser, setShowModalDetailUser] = useState(false)
+    const [showModalDeleteUser, setShowModalDeleteUser] = useState(false)
+
     const [dataUpdate, setDataUpdate] = useState({})
+    const [dataUserDetail, setDataUserDetail] = useState({})
+    const [dataDelete, setDataDelete] = useState({})
 
     const [listUser, setListUser] = useState([])
 
     useEffect(()=> {
-        fetchListUser()
+        fetchListUserWithPaginate(1)
     }, [])
 
     const fetchListUser = async ()=> {
@@ -25,12 +35,39 @@ const ManageUser = (props)=> {
         }
     }
 
+    const fetchListUserWithPaginate = async (page)=> {
+        let res = await getUserWithPaginate(page, LIMIT_USER)
+        console.log('Res.dt: ', res.DT)
+        if (res.EC === 0) {
+            setListUser(res.DT.users)
+            setPageCount(res.DT.totalPages)
+            console.log(res.DT.users)
+        }
+    }
+
     const handleClickBtnUpdate = (user)=> {
         setShowModalUpdateUser(true)
         setDataUpdate(user)
     }
+
+    const handleClickBtnViewDetail = (user)=> {
+        setShowModalDetailUser(true)
+        setDataUserDetail(user)
+        console.log('Check view detail: ', user)
+    }
+
+    const handleClickBtnDelete = (user)=> {
+        console.log('Delete user');
+        setShowModalDeleteUser(true)
+        setDataDelete(user)
+    }
+
     const resetUpdateData = ()=> {
         setDataUpdate({})
+    }
+
+    const resetDetailDataUser = ()=> {
+        setDataUserDetail({})
     }
 
     return(
@@ -43,9 +80,19 @@ const ManageUser = (props)=> {
                     <button className="btn btn-primary mt-3" onClick={()=> setShowModalCreateUser(true)}><FcPlus />Add new users</button>
                 </div>
                 <div className="table-users-container">
-                    <TableUser 
+                    {/* <TableUser 
                         listUser={listUser}
                         handleClickBtnUpdate={handleClickBtnUpdate}
+                        handleClickBtnViewDetail={handleClickBtnViewDetail}
+                        handleClickBtnDelete={handleClickBtnDelete}
+                    /> */}
+                    <TableUserPaginate 
+                        listUser={listUser}
+                        handleClickBtnUpdate={handleClickBtnUpdate}
+                        handleClickBtnViewDetail={handleClickBtnViewDetail}
+                        handleClickBtnDelete={handleClickBtnDelete}
+                        fetchListUserWithPaginate={fetchListUserWithPaginate}
+                        pageCount={pageCount}
                     />
                     <ModalCreateUser 
                         show={showModalCreateUser}
@@ -58,6 +105,20 @@ const ManageUser = (props)=> {
                         dataUpdate={dataUpdate}
                         fetchListUser={fetchListUser}
                         resetUpdateData={resetUpdateData}
+                    />
+
+                    <ModalDetailUser 
+                        show={showModalDetailUser}
+                        setShow={setShowModalDetailUser}
+                        dataUserDetail={dataUserDetail}
+                        resetDetailDataUser={resetDetailDataUser}
+                    />
+
+                    <ModalDeleteUser 
+                        show={showModalDeleteUser}
+                        setShow={setShowModalDeleteUser}
+                        dataDelete={dataDelete}
+                        fetchListUser={fetchListUser}
                     />
                 </div>
             </div>
