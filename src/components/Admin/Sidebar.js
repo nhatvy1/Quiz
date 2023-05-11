@@ -50,7 +50,7 @@ const Sidebar = (props)=> {
                             icon={<MdDashboard />}
                         >
                             Dashboard
-                            <Link to="admin"/>
+                            <Link to="/admin/dashboard"/>
                         </MenuItem>
                     </Menu>
                     <Menu iconShape="circle">
@@ -62,7 +62,7 @@ const Sidebar = (props)=> {
                                 Quản lý người dùng
                                 <Link to="/admin/manage-users" />
                             </MenuItem>
-                            <MenuItem>Quản lý b ài thi</MenuItem>
+                            <MenuItem>Quản lý bài thi</MenuItem>
                             <MenuItem>Quản lý câu hỏi</MenuItem>
                         </SubMenu>
 

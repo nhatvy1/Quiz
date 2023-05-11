@@ -1,7 +1,19 @@
 .login-container {
     .header {
         height: 45px;
-        text-align: center;
+        text-align: right;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 10px;
+        button {
+            border: 1px solid black;
+            border-radius: 3px;
+            margin: 0 3px;
+            padding: 4px 5px;
+            background: none;
+            font-size: 12px;
+        }
     }
     
     .title {
@@ -27,5 +39,19 @@
             color: white;
             border-radius: 5px;
         }
+
+        .password-cus {
+            position: relative;
+            span {
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .back {
+        cursor: pointer;
     }
 }
