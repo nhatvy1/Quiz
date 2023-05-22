@@ -29,7 +29,6 @@ const Signup = (props)=> {
 
     const handleSignup = async ()=> {
         // validate
-        // validate
         const isValidEmail = validateEmail(email)
         if (!isValidEmail) {
             toast.error('Invalid email')
